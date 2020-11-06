@@ -1,4 +1,4 @@
-package org.academiadecodigo.tailormoons;
+package org.academiadecodigo.tailormoons.server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,6 +15,7 @@ public class UserHandler implements Runnable {
 
     private String name;
     private int points;
+    private boolean ready;
 
     public UserHandler(Server sv, Socket client) throws IOException {
 
@@ -30,22 +31,45 @@ public class UserHandler implements Runnable {
 
         askForName();
 
-        out.println("acabou");
+        askReady();
+
     }
 
     private void askForName() {
 
-        out.print("[System]: Welcome, please enter your name. ");
-        out.flush();
+        out.printf("[System]: Welcome, please enter your name. ");
+
         while (true) {
             try {
                 String name = in.readLine();
                 if (!name.isBlank() && !sv.existsName(name)) {
                     this.name = name;
-                    break;
+                    return;
                 }
 
-                out.println("[System]: This name already exists, please insert a new one");
+                out.println("[System]: This name already exists or is blank, please insert a new one");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void askReady() {
+
+        out.printf("[Game]: Are you ready? (y/n) ");
+
+        while (true) {
+            try {
+                String answer = in.readLine();
+                if (answer.toLowerCase().equals("y")) {
+                    ready = true;
+                    return;
+                } else if (answer.toLowerCase().equals("n")) {
+                    out.printf("[Game]: Don't be a conas ");
+                    continue;
+                }
+
+                out.println("[Game]: Invalid input (y/n)");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -70,5 +94,9 @@ public class UserHandler implements Runnable {
 
     public String getName() {
         return name;
+    }
+
+    public boolean isReady() {
+        return ready;
     }
 }

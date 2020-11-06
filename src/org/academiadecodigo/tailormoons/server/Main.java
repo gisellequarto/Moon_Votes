@@ -1,4 +1,4 @@
-import org.academiadecodigo.tailormoons.Server;
+package org.academiadecodigo.tailormoons.server;
 
 import java.io.IOException;
 
