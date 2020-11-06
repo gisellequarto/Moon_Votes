@@ -1,8 +1,9 @@
-package org.academiadecodigo.tailormoons;
+package org.academiadecodigo.tailormoons.server;
+
+import org.academiadecodigo.tailormoons.game.Game;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -20,6 +21,7 @@ public class Server {
 
     private ServerSocket serverSocket;
     private Socket client;
+    private Game game = new Game();
 
     public Server() throws IOException {
         serverSocket = new ServerSocket(PORT_NUMBER);
@@ -29,13 +31,12 @@ public class Server {
 
         ExecutorService executorService = Executors.newFixedThreadPool(20);
 
-        while (!serverSocket.isClosed()) {
+        while (!serverSocket.isClosed() && !game.hasStarted()) {
             try {
                 client = serverSocket.accept();
 
                 UserHandler user = new UserHandler(this, client);
                 users.add(user);
-
                 executorService.execute(user);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -58,5 +59,16 @@ public class Server {
             }
         }
         return false;
+    }
+
+    private boolean isAllReady() {
+
+        for (UserHandler user : users) {
+            if (!user.isReady()) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
