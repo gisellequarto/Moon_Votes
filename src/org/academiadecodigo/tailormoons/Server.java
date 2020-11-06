@@ -1,14 +1,23 @@
 package org.academiadecodigo.tailormoons;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Server {
 
     private static final int PORT_NUMBER = 6924;
+
+    private Vector<UserHandler> users = new Vector<>();
+    private PrintWriter out;
+    private BufferedReader in;
+
     private ServerSocket serverSocket;
     private Socket client;
 
@@ -21,8 +30,33 @@ public class Server {
         ExecutorService executorService = Executors.newFixedThreadPool(20);
 
         while (!serverSocket.isClosed()) {
+            try {
+                client = serverSocket.accept();
 
-            UserHandler user = new UserHandler();
+                UserHandler user = new UserHandler(this, client);
+                users.add(user);
+
+                executorService.execute(user);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+    }
+
+    public void broadcast(String message) {
+
+        for (UserHandler user : users) {
+            user.print(message);
+        }
+    }
+
+    public boolean existsName(String name) {
+
+        for (UserHandler user : users) {
+            if (name.equals(user.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
