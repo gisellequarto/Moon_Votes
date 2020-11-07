@@ -5,7 +5,7 @@ import java.io.IOException;
 public class ClientLauncher {
 
     private static final String SERVER_ADDRESS = "localhost";
-    private static final int SERVER_PORT = 9090;
+    private static final int SERVER_PORT = 6924;
 
     public static void main(String[] args) {
 
