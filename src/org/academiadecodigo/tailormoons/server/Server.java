@@ -31,6 +31,8 @@ public class Server {
 
         ExecutorService executorService = Executors.newFixedThreadPool(20);
 
+        Thread readyChecker = new Thread(new GameStart(this, game));
+
         while (!serverSocket.isClosed() && !game.hasStarted()) {
             try {
                 client = serverSocket.accept();
@@ -70,5 +72,9 @@ public class Server {
         }
 
         return true;
+    }
+
+    public Vector<UserHandler> getUsers() {
+        return users;
     }
 }
