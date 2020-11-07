@@ -12,6 +12,8 @@ public class ClientLauncher {
         Client client = null;
         try {
             client = new Client(SERVER_ADDRESS, SERVER_PORT);
+            // String name = JOptionPane.showInputDialog("Insert your name:");
+            //String ready = JOptionPane.showInputDialog("Are you ready? [y/n]");
             client.start();
         } catch (IOException e) {
             e.printStackTrace();

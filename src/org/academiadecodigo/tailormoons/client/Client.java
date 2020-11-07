@@ -1,6 +1,7 @@
 package org.academiadecodigo.tailormoons.client;
 
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.tailormoons.client.gui.Grid;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -8,18 +9,20 @@ import java.net.Socket;
 public class Client {
 
     private Socket clientSocket;
+    private Grid grid;
 
     public Client(String serverAddress, int serverPort) throws IOException {
         this.clientSocket = new Socket(serverAddress, serverPort);
+        grid = new Grid();
     }
 
     public void start() throws IOException {
 
-        Rectangle gameArea = new Rectangle(0, 0, 500, 500);
-        gameArea.draw();
 
-        Thread clientSend = new Thread(new ClientSend(clientSocket));
+        Thread clientSend = new Thread(new ClientSend(clientSocket, grid));
         Thread clientReceive = new Thread(new ClientReceive(clientSocket));
+
+        grid.launchGrid();
 
         clientSend.start();
         clientReceive.start();
