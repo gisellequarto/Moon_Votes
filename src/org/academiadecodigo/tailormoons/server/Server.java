@@ -135,6 +135,10 @@ public class Server {
         return true;
     }
 
+    public void removeUser(UserHandler user){
+        users.remove(user);
+    }
+
     public Vector<String> getPlayerNames() {
         return playerNames;
     }

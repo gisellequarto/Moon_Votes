@@ -44,6 +44,11 @@ public class UserHandler implements Runnable {
         while (true) {
             try {
                 String name = in.readLine();
+
+                if(!checkConnection(name)){
+                    return;
+                }
+
                 if (!name.isBlank() && !sv.existsName(name)) {
                     this.name = name;
                     return;
@@ -64,6 +69,10 @@ public class UserHandler implements Runnable {
         while (true) {
             try {
                 String answer = in.readLine();
+                if(!checkConnection(answer)){
+                    return;
+                }
+
                 if (answer.toLowerCase().equals("y")) {
                     ready = true;
                     return;
@@ -93,6 +102,20 @@ public class UserHandler implements Runnable {
                 }
                 return result = "voto em branco";
         }
+    }
+
+    public boolean checkConnection (String input){
+        if (input == null) {
+            sv.broadcast(getName() + " has left the chat \n");
+            sv.removeUser(this);
+            try {
+                client.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+        return true;
     }
 
     public void print(String message) {
