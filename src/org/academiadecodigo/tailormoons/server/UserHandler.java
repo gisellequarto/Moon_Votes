@@ -87,6 +87,7 @@ public class UserHandler implements Runnable {
             String result = in.readLine();
 
                 if(sv.getPlayerNames().contains(result)){
+                    System.out.println("accept");
                         return result;
                 }
                 System.out.println("out of loop");
