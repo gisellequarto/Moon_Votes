@@ -20,7 +20,7 @@ public class Server {
     private PrintWriter out;
     private BufferedReader in;
 
-    private LinkedList<String> answers = new LinkedList<>();
+    private Vector<String> answers = new Vector<>();
     private Vector<String> playerNames = new Vector<>();
 
     private ServerSocket serverSocket;
@@ -40,6 +40,7 @@ public class Server {
         while (!serverSocket.isClosed() && !game.hasStarted()) {
 
             if (numberOfPlayers < 2) {
+
                 try {
                     client = serverSocket.accept();
                     numberOfPlayers++;
@@ -92,7 +93,10 @@ public class Server {
     }
 
     private void giveResult() {
+        int nullVotes = 0;
+        int counter = 0;
         StringBuilder result = new StringBuilder();
+
         for (String answer : answers) {
             for (UserHandler userHandler : users) {
                 if (answer.equals(userHandler.getName())) {
@@ -100,7 +104,10 @@ public class Server {
                 }
             }
         }
+
+
         for (UserHandler user : users) {
+            counter += user.getPoints();
             result.append(user.getName()).append(": ").append(user.getPoints()).append(" ");
         }
 
@@ -108,6 +115,9 @@ public class Server {
             user.setPoints(0);
         }
 
+        nullVotes = answers.size() - counter;
+
+        result.append("Null Votes: ").append(nullVotes);
         answers.clear();
         broadcast(result.toString());
 

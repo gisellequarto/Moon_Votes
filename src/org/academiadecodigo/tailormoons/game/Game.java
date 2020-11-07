@@ -50,7 +50,7 @@ public class Game {
         int rounds = 0;
         while (hasStarted()){
 
-            if(rounds < 10){
+            if(rounds < 5){
                 rounds++;
 
                 pickAQuestion();

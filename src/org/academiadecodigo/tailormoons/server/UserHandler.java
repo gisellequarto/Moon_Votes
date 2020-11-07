@@ -50,6 +50,7 @@ public class UserHandler implements Runnable {
                 }
 
                 out.println("[System]: This name already exists or is blank, please insert a new one");
+                out.flush();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -90,7 +91,7 @@ public class UserHandler implements Runnable {
                     System.out.println("accept");
                         return result;
                 }
-                System.out.println("out of loop");
+                return result = "voto em branco";
         }
     }
 
