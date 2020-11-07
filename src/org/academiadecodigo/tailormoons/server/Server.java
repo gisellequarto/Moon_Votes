@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.LinkedList;
 import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -19,9 +20,14 @@ public class Server {
     private PrintWriter out;
     private BufferedReader in;
 
+    private LinkedList<String> answers = new LinkedList<>();
+    private Vector<String> playerNames = new Vector<>();
+
     private ServerSocket serverSocket;
     private Socket client;
-    private Game game = new Game();
+    private Game game = new Game(this);
+
+    private int numberOfPlayers;
 
     public Server() throws IOException {
         serverSocket = new ServerSocket(PORT_NUMBER);
@@ -32,14 +38,25 @@ public class Server {
         ExecutorService executorService = Executors.newFixedThreadPool(20);
 
         while (!serverSocket.isClosed() && !game.hasStarted()) {
-            try {
-                client = serverSocket.accept();
 
-                UserHandler user = new UserHandler(this, client);
-                users.add(user);
-                executorService.execute(user);
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (numberOfPlayers < 2) {
+                try {
+                    client = serverSocket.accept();
+                    numberOfPlayers++;
+
+                    UserHandler user = new UserHandler(this, client);
+                    users.add(user);
+                    executorService.execute(user);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (isAllReady()) {
+                if (playerNames.size() != users.size())
+                    for (UserHandler user : users) {
+                        playerNames.add(user.getName());
+                    }
+                game.start();
             }
         }
     }
@@ -61,6 +78,42 @@ public class Server {
         return false;
     }
 
+    public void getTheAnswers() {
+
+        for (UserHandler user : users) {
+
+            try {
+                answers.add(user.getTheAnswer());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        giveResult();
+    }
+
+    private void giveResult() {
+        StringBuilder result = new StringBuilder();
+        for (String answer : answers) {
+            for (UserHandler userHandler : users) {
+                if (answer.equals(userHandler.getName())) {
+                    userHandler.incrementPoints();
+                }
+            }
+        }
+        for (UserHandler user : users) {
+            result.append(user.getName()).append(": ").append(user.getPoints()).append(" ");
+        }
+
+        for (UserHandler user : users) {
+            user.setPoints(0);
+        }
+
+        answers.clear();
+        broadcast(result.toString());
+
+
+    }
+
     private boolean isAllReady() {
 
         for (UserHandler user : users) {
@@ -70,5 +123,9 @@ public class Server {
         }
 
         return true;
+    }
+
+    public Vector<String> getPlayerNames() {
+        return playerNames;
     }
 }

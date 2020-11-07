@@ -1,5 +1,6 @@
 package org.academiadecodigo.tailormoons.server;
 
+import javax.swing.text.StyledEditorKit;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,6 +18,8 @@ public class UserHandler implements Runnable {
     private int points;
     private boolean ready;
 
+
+
     public UserHandler(Server sv, Socket client) throws IOException {
 
         this.sv = sv;
@@ -30,7 +33,6 @@ public class UserHandler implements Runnable {
     public void run() {
 
         askForName();
-
         askReady();
 
     }
@@ -76,12 +78,31 @@ public class UserHandler implements Runnable {
         }
     }
 
+    public String getTheAnswer() throws IOException { // get each client answer
+
+
+        while (true) {
+
+
+            String result = in.readLine();
+
+                if(sv.getPlayerNames().contains(result)){
+                        return result;
+                }
+                System.out.println("out of loop");
+        }
+    }
+
     public void print(String message) {
         out.println(message);
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void incrementPoints() {
+        points++;
     }
 
     public void setPoints(int points) {
@@ -99,4 +120,5 @@ public class UserHandler implements Runnable {
     public boolean isReady() {
         return ready;
     }
+
 }
