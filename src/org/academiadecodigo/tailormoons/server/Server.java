@@ -33,7 +33,7 @@ public class Server {
 
         while (!serverSocket.isClosed() && !game.hasStarted()) {
 
-            if (numberOfPlayers < 2) {
+            if (numberOfPlayers < 4) {
 
                 try {
                     client = serverSocket.accept();
@@ -75,7 +75,7 @@ public class Server {
         return false;
     }
 
-    public UserHandler getRandomPlayer(){
+    public UserHandler getRandomPlayer() {
 
         Random rand = new Random();
         UserHandler randomElement = users.get(rand.nextInt(users.size()));
@@ -116,10 +116,18 @@ public class Server {
                 }
             }
         }
-        
+
+        int i = 0;
+
         for (UserHandler user : users) {
             counter += user.getPoints();
+
+            if ((i % 4 == 0) && (i != 0)) {
+                result.append("_");
+            }
+
             result.append(user.getName()).append(": ").append(user.getPoints()).append(" ");
+            i++;
         }
 
         for (UserHandler user : users) {

@@ -64,6 +64,7 @@ public class Game {
     }
 
     private void aPlayerMakesTheQuestion() {
+
         UserHandler player = sv.getRandomPlayer();
         player.print("Its your turn to pick a Question!");
         try {
@@ -72,6 +73,7 @@ public class Game {
             e.printStackTrace();
         }
     }
+
     private boolean isMultipleof5(int n) {
 
         while (n > 0) {
