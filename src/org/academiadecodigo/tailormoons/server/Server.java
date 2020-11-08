@@ -5,6 +5,7 @@ import org.academiadecodigo.tailormoons.game.Game;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Random;
 import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -72,6 +73,14 @@ public class Server {
         }
 
         return false;
+    }
+
+    public UserHandler getRandomPlayer(){
+
+        Random rand = new Random();
+        UserHandler randomElement = users.get(rand.nextInt(users.size()));
+
+        return randomElement;
     }
 
     public void getTheAnswers() {

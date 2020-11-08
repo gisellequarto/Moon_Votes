@@ -1,6 +1,7 @@
 package org.academiadecodigo.tailormoons.game;
 
 import org.academiadecodigo.tailormoons.server.Server;
+import org.academiadecodigo.tailormoons.server.UserHandler;
 
 import java.io.*;
 import java.util.Collections;
@@ -42,21 +43,42 @@ public class Game {
     public void start() {
 
         shuffle();
-        
+
         started = true;
-        int rounds = 0;
+        int rounds = 1;
+
         while (hasStarted()) {
-
-            if (rounds < 5) {
+            if (!isMultipleof5(rounds)) {
                 rounds++;
-
                 pickAQuestion();
-
                 getTheAnswer();
-
                 continue;
             }
+
+            rounds++;
+
+            aPlayerMakesTheQuestion();
+            getTheAnswer();
         }
+
+    }
+
+    private void aPlayerMakesTheQuestion() {
+        UserHandler player = sv.getRandomPlayer();
+        player.print("Its your turn to pick a Question!");
+        try {
+            sv.broadcast(player.pickQuestion());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private boolean isMultipleof5(int n) {
+
+        while (n > 0) {
+            n = n - 5;
+        }
+
+        return n == 0;
     }
 
     private void getTheAnswer() {

@@ -117,6 +117,10 @@ public class UserHandler implements Runnable {
         return true;
     }
 
+    public String pickQuestion() throws IOException {
+        return in.readLine();
+    }
+
     public void print(String message) {
         out.println(message);
     }
