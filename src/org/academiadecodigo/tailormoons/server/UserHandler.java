@@ -84,11 +84,9 @@ public class UserHandler implements Runnable {
         }
     }
 
-    public String getTheAnswer() throws IOException { // get each client answer
-
+    public String getTheAnswer() throws IOException {
 
         while (true) {
-
 
             String result = in.readLine();
 
@@ -96,21 +94,26 @@ public class UserHandler implements Runnable {
                 System.out.println("accept");
                 return result;
             }
-            return result = "voto em branco";
+
+            return "voto em branco";
         }
     }
 
     public boolean checkConnection(String input) {
+
         if (input == null) {
             sv.broadcast(getName() + " has left the chat \n");
             sv.removeUser(this);
+
             try {
                 client.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
             return false;
         }
+
         return true;
     }
 
@@ -118,9 +121,6 @@ public class UserHandler implements Runnable {
         out.println(message);
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public void incrementPoints() {
         points++;

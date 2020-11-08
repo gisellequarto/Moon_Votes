@@ -31,7 +31,6 @@ public class Game {
             while ((line = bufferedReader.readLine()) != null) {
                 questions.add(line);
             }
-
         } catch (FileNotFoundException e) {
             System.out.println("This file does not exist");
             e.printStackTrace();
@@ -57,7 +56,6 @@ public class Game {
 
                 continue;
             }
-            // aPlayerMakesTheQuestion();
         }
     }
 
@@ -74,6 +72,7 @@ public class Game {
     }
 
     private void pickAQuestion() {
+
         sv.broadcast(questions.getFirst());
         questions.poll();
     }

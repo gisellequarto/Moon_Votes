@@ -2,9 +2,7 @@ package org.academiadecodigo.tailormoons.server;
 
 import org.academiadecodigo.tailormoons.game.Game;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Vector;
@@ -47,6 +45,7 @@ public class Server {
                     e.printStackTrace();
                 }
             }
+
             if (isAllReady()) {
                 if (playerNames.size() != users.size())
                     for (UserHandler user : users) {
@@ -71,6 +70,7 @@ public class Server {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -84,6 +84,7 @@ public class Server {
                 e.printStackTrace();
             }
         }
+
         giveResult();
 
         try {
@@ -94,6 +95,7 @@ public class Server {
     }
 
     private void giveResult() {
+
         int nullVotes = 0;
         int counter = 0;
         StringBuilder result = new StringBuilder();
@@ -119,6 +121,7 @@ public class Server {
 
         result.append("Null Votes: ").append(nullVotes);
         answers.clear();
+
         broadcast(result.toString());
     }
 
