@@ -138,7 +138,7 @@ public class Server {
 
         nullVotes = answers.size() - counter;
 
-        result.append("Null Votes: ").append(nullVotes);
+        result.append("Unknown: ").append(nullVotes);
         answers.clear();
 
         broadcast(result.toString());

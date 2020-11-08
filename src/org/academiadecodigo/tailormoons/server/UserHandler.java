@@ -44,6 +44,12 @@ public class UserHandler implements Runnable {
 
                 if (name.toLowerCase().equals("francisco")){
                     out.println("Please don't break the game!");
+
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 if (!checkConnection(name)) {
