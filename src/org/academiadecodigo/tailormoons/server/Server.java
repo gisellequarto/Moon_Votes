@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.LinkedList;
 import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -104,8 +103,7 @@ public class Server {
                 }
             }
         }
-
-
+        
         for (UserHandler user : users) {
             counter += user.getPoints();
             result.append(user.getName()).append(": ").append(user.getPoints()).append(" ");
@@ -120,8 +118,6 @@ public class Server {
         result.append("Null Votes: ").append(nullVotes);
         answers.clear();
         broadcast(result.toString());
-
-
     }
 
     private boolean isAllReady() {
@@ -135,7 +131,7 @@ public class Server {
         return true;
     }
 
-    public void removeUser(UserHandler user){
+    public void removeUser(UserHandler user) {
         users.remove(user);
     }
 

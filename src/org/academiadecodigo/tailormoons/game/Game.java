@@ -1,25 +1,21 @@
 package org.academiadecodigo.tailormoons.game;
 
 import org.academiadecodigo.tailormoons.server.Server;
-import org.academiadecodigo.tailormoons.server.UserHandler;
 
 import java.io.*;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
-import java.util.List;
 
 public class Game {
 
     private File questionsFile = new File("assets/questions.txt");
     private LinkedList<String> questions = new LinkedList<>();
 
-
-    Server sv;
-
+    private Server sv;
     private boolean started = false;
 
     public Game(Server sv) {
+
         this.sv = sv;
         init();
     }
@@ -45,12 +41,14 @@ public class Game {
     }
 
     public void start() {
+
         shuffle();
+        
         started = true;
         int rounds = 0;
-        while (hasStarted()){
+        while (hasStarted()) {
 
-            if(rounds < 5){
+            if (rounds < 5) {
                 rounds++;
 
                 pickAQuestion();
@@ -59,7 +57,7 @@ public class Game {
 
                 continue;
             }
-           // aPlayerMakesTheQuestion();
+            // aPlayerMakesTheQuestion();
         }
     }
 
@@ -71,11 +69,11 @@ public class Game {
         return started;
     }
 
-    private void shuffle(){
+    private void shuffle() {
         Collections.shuffle(questions);
     }
 
-    private void pickAQuestion(){
+    private void pickAQuestion() {
         sv.broadcast(questions.getFirst());
         questions.poll();
     }

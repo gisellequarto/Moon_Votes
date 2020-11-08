@@ -1,6 +1,5 @@
 package org.academiadecodigo.tailormoons.server;
 
-import javax.swing.text.StyledEditorKit;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,7 +18,6 @@ public class UserHandler implements Runnable {
     private boolean ready;
 
 
-
     public UserHandler(Server sv, Socket client) throws IOException {
 
         this.sv = sv;
@@ -34,7 +32,6 @@ public class UserHandler implements Runnable {
 
         askForName();
         askReady();
-
     }
 
     private void askForName() {
@@ -45,7 +42,7 @@ public class UserHandler implements Runnable {
             try {
                 String name = in.readLine();
 
-                if(!checkConnection(name)){
+                if (!checkConnection(name)) {
                     return;
                 }
 
@@ -69,7 +66,7 @@ public class UserHandler implements Runnable {
         while (true) {
             try {
                 String answer = in.readLine();
-                if(!checkConnection(answer)){
+                if (!checkConnection(answer)) {
                     return;
                 }
 
@@ -96,15 +93,15 @@ public class UserHandler implements Runnable {
 
             String result = in.readLine();
 
-                if(sv.getPlayerNames().contains(result)){
-                    System.out.println("accept");
-                        return result;
-                }
-                return result = "voto em branco";
+            if (sv.getPlayerNames().contains(result)) {
+                System.out.println("accept");
+                return result;
+            }
+            return result = "voto em branco";
         }
     }
 
-    public boolean checkConnection (String input){
+    public boolean checkConnection(String input) {
         if (input == null) {
             sv.broadcast(getName() + " has left the chat \n");
             sv.removeUser(this);
@@ -145,5 +142,4 @@ public class UserHandler implements Runnable {
     public boolean isReady() {
         return ready;
     }
-
 }
