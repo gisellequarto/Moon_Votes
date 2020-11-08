@@ -36,7 +36,7 @@ public class UserHandler implements Runnable {
 
     private void askForName() {
 
-        out.printf("[System]: Welcome, please enter your name. ");
+        out.println("[System]: Welcome, please enter your name. ");
 
         while (true) {
             try {
@@ -52,7 +52,6 @@ public class UserHandler implements Runnable {
                 }
 
                 out.println("[System]: This name already exists or is blank, please insert a new one");
-                out.flush();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -61,7 +60,7 @@ public class UserHandler implements Runnable {
 
     private void askReady() {
 
-        out.printf("[Game]: Are you ready? (y/n) ");
+        out.println("[Game]: Are you ready? (y/n) ");
 
         while (true) {
             try {
@@ -74,7 +73,7 @@ public class UserHandler implements Runnable {
                     ready = true;
                     return;
                 } else if (answer.toLowerCase().equals("n")) {
-                    out.printf("[Game]: Don't be a conas ");
+                    out.println("[Game]: Don't be a conas ");
                     continue;
                 }
 
