@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class ClientLauncher {
 
-    private static final String USAGE_MESSAGE = "Usage: java -jar MoonVotesClient.jar";
+    private static final String USAGE_MESSAGE = "Usage: java -jar MoonVotesClient.jar <host> <port>";
 
     public static void main(String[] args) {
 
