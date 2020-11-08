@@ -1,6 +1,6 @@
 package org.academiadecodigo.tailormoons.server;
 
-import org.academiadecodigo.tailormoons.game.Game;
+import org.academiadecodigo.tailormoons.server.game.Game;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -21,10 +21,12 @@ public class Server {
     private Socket client;
     private Game game = new Game(this);
 
+    private int playerCounter;
     private int numberOfPlayers;
 
-    public Server(String port) throws IOException {
+    public Server(String port, int numberOfPlayers) throws IOException {
         serverSocket = new ServerSocket(Integer.parseInt(port));
+        this.numberOfPlayers = numberOfPlayers;
     }
 
     public void start() {
@@ -33,11 +35,11 @@ public class Server {
 
         while (!serverSocket.isClosed() && !game.hasStarted()) {
 
-            if (numberOfPlayers < 4) {
+            if (playerCounter < numberOfPlayers) {
 
                 try {
                     client = serverSocket.accept();
-                    numberOfPlayers++;
+                    playerCounter++;
 
                     UserHandler user = new UserHandler(this, client);
                     users.add(user);

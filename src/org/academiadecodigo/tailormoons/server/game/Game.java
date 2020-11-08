@@ -1,4 +1,4 @@
-package org.academiadecodigo.tailormoons.game;
+package org.academiadecodigo.tailormoons.server.game;
 
 import org.academiadecodigo.tailormoons.server.Server;
 import org.academiadecodigo.tailormoons.server.UserHandler;

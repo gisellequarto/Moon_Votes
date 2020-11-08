@@ -42,6 +42,10 @@ public class UserHandler implements Runnable {
             try {
                 String name = in.readLine();
 
+                if (name.toLowerCase().equals("francisco")){
+                    out.println("Please don't break the game!");
+                }
+
                 if (!checkConnection(name)) {
                     return;
                 }
@@ -51,7 +55,7 @@ public class UserHandler implements Runnable {
                     return;
                 }
 
-                out.println("[System]: This name already exists or is blank, please insert a new one");
+                out.println("[System]: This name already exists or is blank.");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -73,7 +77,7 @@ public class UserHandler implements Runnable {
                     ready = true;
                     return;
                 } else if (answer.toLowerCase().equals("n")) {
-                    out.println("[Game]: Don't be a conas ");
+                    out.println("[Game]: Don't be a conas. Press y!");
                     continue;
                 }
 
