@@ -13,11 +13,7 @@ import java.util.concurrent.Executors;
 
 public class Server {
 
-    private static final int PORT_NUMBER = 6924;
-
     private Vector<UserHandler> users = new Vector<>();
-    private PrintWriter out;
-    private BufferedReader in;
 
     private Vector<String> answers = new Vector<>();
     private Vector<String> playerNames = new Vector<>();
@@ -28,8 +24,8 @@ public class Server {
 
     private int numberOfPlayers;
 
-    public Server() throws IOException {
-        serverSocket = new ServerSocket(PORT_NUMBER);
+    public Server(String port) throws IOException {
+        serverSocket = new ServerSocket(Integer.parseInt(port));
     }
 
     public void start() {
@@ -89,6 +85,12 @@ public class Server {
             }
         }
         giveResult();
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void giveResult() {
