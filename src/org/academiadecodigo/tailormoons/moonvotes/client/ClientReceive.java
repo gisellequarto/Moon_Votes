@@ -1,6 +1,5 @@
 package org.academiadecodigo.tailormoons.moonvotes.client;
 
-import org.academiadecodigo.simplegraphics.graphics.Text;
 import org.academiadecodigo.tailormoons.moonvotes.client.gui.ServerArea;
 
 import java.io.BufferedReader;
@@ -15,17 +14,22 @@ public class ClientReceive implements Runnable {
     private ServerArea serverArea;
 
     public ClientReceive(Socket clientSocket) throws IOException {
-            this.clientSocket = clientSocket;
-            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            serverArea = new ServerArea();
+        this.clientSocket = clientSocket;
+        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        serverArea = new ServerArea();
     }
 
     @Override
     public void run() {
 
-        while (!clientSocket.isClosed()){
+        while (!clientSocket.isClosed()) {
             try {
                 String serverMessage = in.readLine();
+                if (serverMessage.contains("_")) {
+                    serverArea.setServerBoxDouble(serverMessage);
+                    continue;
+                }
+                serverArea.setServerBox2();
                 serverArea.setServerBox(serverMessage);
                 serverArea.showServerBox();
 

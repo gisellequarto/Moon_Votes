@@ -21,6 +21,9 @@ public class UserArea {
     }
 
     public void setText(String character) {
+        if (builder.length() >= 20) {
+            return;
+        }
         builder.append(character);
         userBox.setText(builder.toString());
         showUserBox();
@@ -36,7 +39,7 @@ public class UserArea {
         showUserBox();
     }
 
-    public String getAnswer(){
+    public String getAnswer() {
         String answer = builder.toString();
         builder.delete(0, builder.length());
         setText("");
@@ -47,7 +50,7 @@ public class UserArea {
         this.answerSent = answerSent;
     }
 
-    public boolean answerSent(){
+    public boolean answerSent() {
         return answerSent;
     }
 
