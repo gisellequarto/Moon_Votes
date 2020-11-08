@@ -1,4 +1,4 @@
-package org.academiadecodigo.tailormoons.client.gui;
+package org.academiadecodigo.tailormoons.moonvotes.client.gui;
 
 import org.academiadecodigo.simplegraphics.graphics.Text;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
@@ -38,7 +38,6 @@ public class UserArea {
 
     public String getAnswer(){
         String answer = builder.toString();
-        System.out.println("userArea" + answer);
         builder.delete(0, builder.length());
         setText("");
         return answer;
@@ -60,7 +59,7 @@ public class UserArea {
             case KeyboardEvent.KEY_BACKSPACE:
                 eraseText();
                 break;
-            case KeyboardEvent.KEY_DOWN:
+            case KeyboardEvent.KEY_ENTER:
                 answerSent = true;
                 break;
             case KeyboardEvent.KEY_A:

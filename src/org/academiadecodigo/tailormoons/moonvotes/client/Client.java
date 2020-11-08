@@ -1,7 +1,6 @@
-package org.academiadecodigo.tailormoons.client;
+package org.academiadecodigo.tailormoons.moonvotes.client;
 
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
-import org.academiadecodigo.tailormoons.client.gui.Grid;
+import org.academiadecodigo.tailormoons.moonvotes.client.gui.Grid;
 
 import java.io.IOException;
 import java.net.Socket;

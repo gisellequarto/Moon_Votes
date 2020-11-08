@@ -1,16 +1,16 @@
-package org.academiadecodigo.tailormoons.client.gui;
+package org.academiadecodigo.tailormoons.moonvotes.client.gui;
 
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
-import org.academiadecodigo.tailormoons.client.ClientSend;
 
 public class KeyboardListener implements KeyboardHandler {
 
     private static int[] KEY_CODES = {
             KeyboardEvent.KEY_SPACE,
             KeyboardEvent.KEY_BACKSPACE,
+            KeyboardEvent.KEY_ENTER,
             KeyboardEvent.KEY_DOWN,
             KeyboardEvent.KEY_A,
             KeyboardEvent.KEY_B,

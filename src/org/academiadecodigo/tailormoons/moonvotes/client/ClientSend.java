@@ -1,14 +1,10 @@
-package org.academiadecodigo.tailormoons.client;
+package org.academiadecodigo.tailormoons.moonvotes.client;
 
-import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
-import org.academiadecodigo.tailormoons.client.gui.Grid;
-import org.academiadecodigo.tailormoons.client.gui.KeyboardListener;
-import org.academiadecodigo.tailormoons.client.gui.UserArea;
+import org.academiadecodigo.tailormoons.moonvotes.client.gui.Grid;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class ClientSend implements Runnable {
 
@@ -29,7 +25,6 @@ public class ClientSend implements Runnable {
 
             if (grid.getUserArea().answerSent()) {
                 String message = grid.getUserArea().getAnswer();
-                System.out.println("client" + message);
                 out.println(message);
                 grid.getUserArea().setAnswerSent(false);
             }

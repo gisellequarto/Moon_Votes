@@ -1,4 +1,4 @@
-package org.academiadecodigo.tailormoons.client.gui;
+package org.academiadecodigo.tailormoons.moonvotes.client.gui;
 
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;

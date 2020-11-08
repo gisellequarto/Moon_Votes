@@ -1,7 +1,7 @@
-package org.academiadecodigo.tailormoons.client;
+package org.academiadecodigo.tailormoons.moonvotes.client;
 
 import org.academiadecodigo.simplegraphics.graphics.Text;
-import org.academiadecodigo.tailormoons.client.gui.ServerArea;
+import org.academiadecodigo.tailormoons.moonvotes.client.gui.ServerArea;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,7 +12,6 @@ public class ClientReceive implements Runnable {
 
     private final Socket clientSocket;
     private final BufferedReader in;
-    private Text text;
     private ServerArea serverArea;
 
     public ClientReceive(Socket clientSocket) throws IOException {

@@ -1,17 +1,24 @@
-package org.academiadecodigo.tailormoons.client;
+package org.academiadecodigo.tailormoons.moonvotes.client;
 
 import java.io.IOException;
 
 public class ClientLauncher {
 
-    private static final String SERVER_ADDRESS = "localhost";
-    private static final int SERVER_PORT = 6924;
+    private static final String USAGE_MESSAGE = "Usage: java -jar MoonVotesClient.jar";
 
     public static void main(String[] args) {
 
+        if (args.length < 2) {
+            System.out.println(USAGE_MESSAGE);
+            return;
+        }
+
         Client client = null;
         try {
-            client = new Client(SERVER_ADDRESS, SERVER_PORT);
+            String serverAddress = args[0];
+            int serverPort = Integer.parseInt(args[1]);
+
+            client = new Client(serverAddress, serverPort);
             // String name = JOptionPane.showInputDialog("Insert your name:");
             //String ready = JOptionPane.showInputDialog("Are you ready? [y/n]");
             client.start();
